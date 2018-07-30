@@ -9367,7 +9367,7 @@ body {
 }
 .integration-connect-btn:before {
   content: "";
-  background: url(images/plus.png) 50%/16px no-repeat;
+  background: url(./../../images/plus.png) 50%/16px no-repeat;
   height: 14px;
   width: 14px;
   margin-right: 8px;
@@ -9397,7 +9397,6 @@ body {
   background-color: #ff9914;
 }
 .integration-connect-btn.integration-connect-btn-continue:before {
-  /* Image not found */
   background: url(./../../images/arrow-btn_2x.png) 50%/16px no-repeat;
 }
 .integration-connect-btn.integration-connect-btn-continue:hover {
@@ -9684,7 +9683,6 @@ body {
   margin-top: -94px;
   height: 188px;
   width: 28px;
-  /* Iamge not found */
   background-image: url(./../../images/arr-l.png);
   background-position: 50%;
   background-size: cover;
@@ -9705,7 +9703,6 @@ body {
   margin-top: -130px;
   height: 188px;
   width: 28px;
-  /* Image Not found */
   background-image: url(./../../images/arr-l.png);
   background-position: 50%;
   background-size: cover;
@@ -9941,7 +9938,7 @@ body {
 .registrations .container .connected-ballons .quokka-ballon > .ballon-icon {
   border: none;
   box-shadow: 0 0 6px 0 hsla(0, 0%, 65%, 0.5);
-  background: url(../../../images/nuel-icon_1x.png) 50%/50% no-repeat;
+  background: url(./../../images/nuel-icon_1x.png) 50%/50% no-repeat;
   cursor: auto;
 }
 .registrations .great-things-await {
@@ -10890,8 +10887,6 @@ code {
   width: 240px;
   height: 35px;
   margin-bottom: 5px;
-
-  /* Image not found */
   background: url(./../../images/active_campaign_logo.png) no-repeat 50%;
   background-size: contain;
   margin-left: -6px;
@@ -11519,7 +11514,6 @@ code {
   content: "";
   height: 15px;
   width: 15px;
-  /* Iamge not found */
   background: url(./../../images/check_mark.png) no-repeat 50%/100%;
   margin-right: 5px;
   position: relative;
