@@ -2,8 +2,12 @@ import "./errorReporting";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+
 import "./styles/index.css";
 import App from "./components/app";
+
+import { store } from "./_helpers";
 
 /**
  Browser Router is a Higher order component / HOC, it needs to wrap 
@@ -12,9 +16,11 @@ import App from "./components/app";
 
 const Main = () => {
   return (
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   );
 };
 
