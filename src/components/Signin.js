@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Logo from "../images/logo-3.png";
 import illustartion from "../images/signup-login-ill_2x.png";
+
+import SignInForm from "./SignInForm/SignInForm";
 class Signin extends Component {
   render() {
     return (
@@ -33,47 +35,7 @@ class Signin extends Component {
                     <hr className="m-b-30" />
                     <div className="row">
                       <div className="col-12">
-                        <form
-                          id="sign_in_form"
-                          action="/auth/sign-in"
-                          method="POST"
-                        >
-                          <div className="form-group m-b-20">
-                            <input
-                              className="form-control-lg forn-trans form-control"
-                              type="email"
-                              id="email"
-                              name="email"
-                              placeholder="ENTER YOUR EMAIL"
-                              required
-                            />
-                          </div>
-                          <div className="form-group ">
-                            <input
-                              className="form-control-lg forn-trans form-control"
-                              type="password"
-                              id="password"
-                              name="password"
-                              placeholder="ENTER YOUR PASSWORD"
-                              required
-                            />
-                          </div>
-                          <div className="m-b-40">
-                            <a href="/auth/reset">Forgot password?</a>
-                          </div>
-                          <div className="t-center">
-                            <button
-                              className="btn btn-lg btn-primary"
-                              type="submit"
-                            >
-                              LOGIN
-                            </button>
-                            <span className="your-privacy-is-valu m-t-10 t-center dis-block">
-                              Don’t have account yet?{" "}
-                              <a href="/auth/sign-up">Sign up</a>
-                            </span>
-                          </div>
-                        </form>
+                        <SignInForm />
                       </div>
                     </div>
                   </div>
