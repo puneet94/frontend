@@ -9,8 +9,8 @@ class Signin extends Component {
     super(props);
     this.state = {
       userSigninDetails: {
-        email: "",
-        password: ""
+        email: "test@test.com",
+        password: "test"
       }
     };
   }
@@ -66,7 +66,7 @@ class Signin extends Component {
                     <hr className="m-b-30" />
                     <div className="row">
                       <div className="col-12">
-                        <form id="sign_in_form" onSubmit={this.signin}>
+                        <div id="sign_in_form">
                           <div className="form-group m-b-20">
                             <input
                               className="form-control-lg forn-trans form-control"
@@ -97,7 +97,7 @@ class Signin extends Component {
                           <div className="t-center">
                             <button
                               className="btn btn-lg btn-primary"
-                              type="submit"
+                              onClick={this.signin}
                             >
                               LOGIN
                             </button>
@@ -106,7 +106,7 @@ class Signin extends Component {
                               <a href="/auth/sign-up">Sign up</a>
                             </span>
                           </div>
-                        </form>
+                        </div>
                       </div>
                     </div>
                   </div>

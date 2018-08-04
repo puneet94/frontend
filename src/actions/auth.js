@@ -8,9 +8,10 @@ import {
 } from "../constants";
 
 export const signin = signindetails => {
+  alert(JSON.stringify(signindetails));
   return async dispatch => {
     try {
-      let response = await axios.post(SIGNIN_URL, { signindetails });
+      let response = await axios.post(SIGNIN_URL, { ...signindetails });
 
       dispatch({ type: SET_AUTH_TOKEN, payload: response.data.token });
       dispatch({ type: SET_USER_DETAILS, payload: response.data.user });
@@ -23,7 +24,6 @@ export const signin = signindetails => {
   };
 };
 export const signup = signupdetails => {
-  alert(JSON.stringify(signupdetails));
   return async dispatch => {
     try {
       let response = await axios.post(SIGNUP_URL, { ...signupdetails });
@@ -41,9 +41,7 @@ export const signup = signupdetails => {
 
 export const logout = () => {
   return async dispatch => {
-    await AsyncStorage.removeItem(JWT_TOKEN);
     dispatch({ type: REMOVE_AUTH_TOKEN });
-    Actions.logo();
   };
 };
 export const setAuthToken = () => {

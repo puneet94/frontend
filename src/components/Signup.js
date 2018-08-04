@@ -11,7 +11,7 @@ class Signup extends Component {
     this.state = {
       userSignupDetails: {
         email: "shfkhdf" + Math.random() + "@someth.com",
-        password: "dfff",
+        password: "testtest",
         firstName: "fdff",
         lastName: "dffff"
       }
@@ -19,13 +19,7 @@ class Signup extends Component {
   }
   componentWillMount = async () => {};
   signup = () => {
-    alert("called signup");
-    this.props.signup({
-      email: "stryrtyt" + Math.random() + "yhdf@sohhhh.com",
-      password: "dfffllllllll",
-      firstName: "fdff",
-      lastName: "dffff"
-    });
+    this.props.signup(this.state.userSignupDetails);
   };
   changeUserSignupDetails = e => {
     console.clear();

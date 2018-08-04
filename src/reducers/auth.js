@@ -1,10 +1,13 @@
 import { SET_AUTH_TOKEN, REMOVE_AUTH_TOKEN } from "../constants";
 
+let accessTokenStored = localStorage.getItem("accessToken");
+console.log("access roken");
+console.log(accessTokenStored);
 const INITIAL_STATE = {
   accessToken: "",
   refreshToken: "",
   tokenType: "",
-  isAuthenticated: false,
+  isAuthenticated: accessTokenStored ? true : false,
   expiresIn: ""
 };
 export const auth = (state = INITIAL_STATE, action) => {
@@ -16,6 +19,10 @@ export const auth = (state = INITIAL_STATE, action) => {
         expiresIn,
         tokenType
       } = action.payload;
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("expiresIn", expiresIn);
+
       return {
         ...state,
         accessToken,
