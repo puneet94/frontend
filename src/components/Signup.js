@@ -20,37 +20,16 @@ class Signup extends Component {
   componentWillMount = async () => {};
   signup = () => {
     alert("called signup");
-
-    axios({
-      method: "post",
-      url: "https://api.nuel.io/v1/auth/register",
-      data: {
-        email: "shfkdthlllllllthtryrtytyhdf@sohhhhhhhmethsss.com",
-        password: "dfffllllllll",
-        firstName: "fdff",
-        lastName: "dffff"
-      }
-    })
-      .then(function() {
-        alert("sdhjfhjsgdf");
-      })
-      .catch(function(e) {
-        console.log(e);
-        alert("error" + Object.keys(e.request));
-      });
-
-    /*
-    try{
-      this.props.signup(this.state.userSignupDetails);
-    }
-    catch(e){
-      console.log("got here as well");
-      console.log(e);
-    }*/
+    this.props.signup({
+      email: "stryrtyt" + Math.random() + "yhdf@sohhhh.com",
+      password: "dfffllllllll",
+      firstName: "fdff",
+      lastName: "dffff"
+    });
   };
   changeUserSignupDetails = e => {
     console.clear();
-    console.log("check e", { [e.currentTarget.name]: e.currentTarget.value });
+
     const { name, value } = e.target;
     this.setState(previousState => {
       return {
@@ -62,11 +41,9 @@ class Signup extends Component {
     });
   };
   render = () => {
-    /*if(this.props.isAuthenticated===true){
-      
-      return <Redirect to='/auth/connect' />
-      
-    }*/
+    if (this.props.isAuthenticated === true) {
+      return <Redirect to="/auth/connect" />;
+    }
     return (
       <div className="display-full">
         <div className="w-100">
@@ -94,7 +71,7 @@ class Signup extends Component {
                     </p>
                     <hr />
 
-                    <form id="sign_up_form" onSubmit={this.signup}>
+                    <div id="sign_up_form">
                       <div className="form-group">
                         <div className=" dis-flex  dis-flex-1">
                           <input
@@ -167,23 +144,18 @@ class Signup extends Component {
                       <div className="t-center">
                         <button
                           className="btn btn-lg btn-primary"
-                          type="submit"
-                        >
-                          CONTINUE
-                        </button>
-                        <button
                           onClick={() => {
                             this.signup();
                           }}
-                          className="btn btn-lg btn-primary"
                         >
-                          CONTINUEs
+                          CONTINUE
                         </button>
+
                         <span className="your-privacy-is-valu m-t-10 t-center dis-block">
                           your privacy is valued
                         </span>
                       </div>
-                    </form>
+                    </div>
                   </div>
                 </div>
                 <div className="col-4 right-bg dis-flex dis-flex-column illustartion-container">

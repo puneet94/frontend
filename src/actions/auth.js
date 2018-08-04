@@ -23,9 +23,10 @@ export const signin = signindetails => {
   };
 };
 export const signup = signupdetails => {
+  alert(JSON.stringify(signupdetails));
   return async dispatch => {
     try {
-      let response = await axios.post(SIGNUP_URL, { signupdetails });
+      let response = await axios.post(SIGNUP_URL, { ...signupdetails });
 
       dispatch({ type: SET_AUTH_TOKEN, payload: response.data.token });
       dispatch({ type: SET_USER_DETAILS, payload: response.data.user });
