@@ -8,8 +8,13 @@ import customerio from "../images/customerio-logo_2x.png";
 import activecampaign from "../images/activecampaign-logo_2x.png";
 import facebook from "../images/facebook-logo_2x.png";
 import adwords from "../images/adwords-logo_2x.png";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 class Auth extends Component {
   render() {
+    if (this.props.isAuthenticated === false) {
+      return <Redirect to="/auth/sign-up" />;
+    }
     return (
       <div className="w-100">
         <div className="view-container registrations new">
@@ -295,4 +300,12 @@ class Auth extends Component {
   }
 }
 
-export default Auth;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+export default connect(
+  mapStateToProps,
+  {}
+)(Auth);

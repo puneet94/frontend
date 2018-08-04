@@ -1,8 +1,69 @@
 import React, { Component } from "react";
 import illustartion from "../images/signup-login-ill_2x.png";
-
+import { connect } from "react-redux";
+import { signup } from "../actions/auth";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
+import { SIGNUP_URL } from "../constants";
 class Signup extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userSignupDetails: {
+        email: "shfkhdf" + Math.random() + "@someth.com",
+        password: "dfff",
+        firstName: "fdff",
+        lastName: "dffff"
+      }
+    };
+  }
+  componentWillMount = async () => {};
+  signup = async () => {
+    alert("called signup");
+
+    axios
+      .post("https://api.nuel.io/v1/auth/register", {
+        email: "shfkhdf@someth.com",
+        password: "dfff",
+        firstName: "fdff",
+        lastName: "dffff"
+      })
+      .then(function() {
+        alert("sdhjfhjsgdf");
+      })
+      .catch(function() {
+        alert("s");
+      });
+    alert("hit");
+
+    /*
+    try{
+      this.props.signup(this.state.userSignupDetails);
+    }
+    catch(e){
+      console.log("got here as well");
+      console.log(e);
+    }*/
+  };
+  changeUserSignupDetails = e => {
+    console.clear();
+    console.log("check e", { [e.currentTarget.name]: e.currentTarget.value });
+    const { name, value } = e.target;
+    this.setState(previousState => {
+      return {
+        userSignupDetails: {
+          ...previousState.userSignupDetails,
+          [name]: value
+        }
+      };
+    });
+  };
+  render = () => {
+    /*if(this.props.isAuthenticated===true){
+      
+      return <Redirect to='/auth/connect' />
+      
+    }*/
     return (
       <div className="display-full">
         <div className="w-100">
@@ -30,11 +91,7 @@ class Signup extends Component {
                     </p>
                     <hr />
 
-                    <form
-                      id="sign_up_form"
-                      action="/auth/sign-up"
-                      method="POST"
-                    >
+                    <form id="sign_up_form" onSubmit={this.signup}>
                       <div className="form-group">
                         <div className=" dis-flex  dis-flex-1">
                           <input
@@ -45,6 +102,8 @@ class Signup extends Component {
                             placeholder="email@email.com"
                             required
                             autoComplete="nope"
+                            value={this.state.userSignupDetails.email}
+                            onChange={this.changeUserSignupDetails}
                           />
                         </div>
                       </div>
@@ -63,6 +122,8 @@ class Signup extends Component {
                               placeholder="FIRST NAME"
                               required
                               autoComplete="nope"
+                              value={this.state.userSignupDetails.firstName}
+                              onChange={this.changeUserSignupDetails}
                             />
                           </div>
                           <div className="col-6 p-l-0">
@@ -74,6 +135,8 @@ class Signup extends Component {
                               placeholder="LAST NAME"
                               required
                               autoComplete="nope"
+                              value={this.state.userSignupDetails.lastName}
+                              onChange={this.changeUserSignupDetails}
                             />
                           </div>
                         </div>
@@ -91,6 +154,8 @@ class Signup extends Component {
                           placeholder="CREATE A PASSWORD"
                           required
                           autoComplete="nope"
+                          value={this.state.userSignupDetails.password}
+                          onChange={this.changeUserSignupDetails}
                         />
                         <span className="please-keep-it-at-le">
                           please keep it at least 8 characters long
@@ -102,6 +167,14 @@ class Signup extends Component {
                           type="submit"
                         >
                           CONTINUE
+                        </button>
+                        <button
+                          onClick={() => {
+                            this.signup();
+                          }}
+                          className="btn btn-lg btn-primary"
+                        >
+                          CONTINUEs
                         </button>
                         <span className="your-privacy-is-valu m-t-10 t-center dis-block">
                           your privacy is valued
@@ -128,7 +201,15 @@ class Signup extends Component {
         </div>
       </div>
     );
-  }
+  };
 }
-
-export default Signup;
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+export default connect(
+  mapStateToProps,
+  { signup }
+)(Signup);

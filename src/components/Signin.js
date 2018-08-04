@@ -1,8 +1,41 @@
 import React, { Component } from "react";
 import Logo from "../images/logo-3.png";
 import illustartion from "../images/signup-login-ill_2x.png";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { signin } from "../actions/auth";
 class Signin extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userSigninDetails: {
+        email: "",
+        password: ""
+      }
+    };
+  }
+  signin = async () => {
+    try {
+      await this.props.signin(this.state.userSigninDetails);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  changeUserSigninDetails = e => {
+    const { name, value } = e.target;
+    this.setState(previousState => {
+      return {
+        userSigninDetails: {
+          ...previousState.userSigninDetails,
+          [name]: value
+        }
+      };
+    });
+  };
   render() {
+    if (this.props.isAuthenticated == true) {
+      return <Redirect to="/auth/connect" />;
+    }
     return (
       <div className="display-full">
         <div className="w-100">
@@ -33,11 +66,7 @@ class Signin extends Component {
                     <hr className="m-b-30" />
                     <div className="row">
                       <div className="col-12">
-                        <form
-                          id="sign_in_form"
-                          action="/auth/sign-in"
-                          method="POST"
-                        >
+                        <form id="sign_in_form" onSubmit={this.signin}>
                           <div className="form-group m-b-20">
                             <input
                               className="form-control-lg forn-trans form-control"
@@ -46,6 +75,8 @@ class Signin extends Component {
                               name="email"
                               placeholder="ENTER YOUR EMAIL"
                               required
+                              value={this.state.userSigninDetails.email}
+                              onChange={this.changeUserSigninDetails}
                             />
                           </div>
                           <div className="form-group ">
@@ -56,6 +87,8 @@ class Signin extends Component {
                               name="password"
                               placeholder="ENTER YOUR PASSWORD"
                               required
+                              value={this.state.userSigninDetails.password}
+                              onChange={this.changeUserSigninDetails}
                             />
                           </div>
                           <div className="m-b-40">
@@ -96,5 +129,12 @@ class Signin extends Component {
     );
   }
 }
-
-export default Signin;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+export default connect(
+  mapStateToProps,
+  { signin }
+)(Signin);
