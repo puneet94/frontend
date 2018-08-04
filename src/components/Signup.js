@@ -18,23 +18,26 @@ class Signup extends Component {
     };
   }
   componentWillMount = async () => {};
-  signup = async () => {
+  signup = () => {
     alert("called signup");
 
-    axios
-      .post("https://api.nuel.io/v1/auth/register", {
-        email: "shfkhdf@someth.com",
-        password: "dfff",
+    axios({
+      method: "post",
+      url: "https://api.nuel.io/v1/auth/register",
+      data: {
+        email: "shfkdthlllllllthtryrtytyhdf@sohhhhhhhmethsss.com",
+        password: "dfffllllllll",
         firstName: "fdff",
         lastName: "dffff"
-      })
+      }
+    })
       .then(function() {
         alert("sdhjfhjsgdf");
       })
-      .catch(function() {
-        alert("s");
+      .catch(function(e) {
+        console.log(e);
+        alert("error" + Object.keys(e.request));
       });
-    alert("hit");
 
     /*
     try{
