@@ -10,8 +10,8 @@ class Signup extends Component {
     super(props);
     this.state = {
       userSignupDetails: {
-        email: "test@tfffest.com", //"shfkhdf" + Math.random() + "@someth.com",
-        password: "testfffffff",
+        email: "", //"shfkhdf" + Math.random() + "@someth.com",
+        password: "",
         firstName: "fdff",
         lastName: "dffff"
       }
