@@ -15,30 +15,53 @@ class Auth extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      emailProvidersCount: 0,
-      retargetsCount: 0
+      emailProviders: [],
+      retargets: []
     };
   }
   continueButtonEnabled = () => {
-    return this.state.emailProvidersCount > 0 && this.state.retargetsCount > 0;
+    return (
+      this.state.emailProviders.length > 0 && this.state.retargets.length > 0
+    );
   };
   logout = () => {
     this.props.logout();
   };
-  retargetConnect = () => {
-    this.setState(prevState => {
-      return {
-        retargetsCount: prevState.retargetsCount + 1
-      };
-    });
+  retargetConnect = newRetarget => {
+    if (this.state.retargets.indexOf(newRetarget) === -1) {
+      this.setState(prevState => {
+        return {
+          retargets: [...prevState.retargets, newRetarget]
+        };
+      });
+    } else {
+      this.setState(prevState => {
+        return {
+          retargets: prevState.retargets.filter(
+            retarget => retarget !== newRetarget
+          )
+        };
+      });
+    }
   };
-  emailProviderConnect = () => {
-    this.setState(prevState => {
-      return {
-        emailProvidersCount: prevState.emailProvidersCount + 1
-      };
-    });
+  emailProviderConnect = newEmailProvider => {
+    if (this.state.emailProviders.indexOf(newEmailProvider) === -1) {
+      this.setState(prevState => {
+        return {
+          emailProviders: [...prevState.emailProviders, newEmailProvider]
+        };
+      });
+    } else {
+      this.setState(prevState => {
+        return {
+          emailProviders: prevState.emailProviders.filter(
+            emailProvider => emailProvider !== newEmailProvider
+          )
+        };
+      });
+    }
   };
+
   render() {
     if (this.props.isAuthenticated === false) {
       return <Redirect to="/auth/sign-up" />;
@@ -118,9 +141,15 @@ class Auth extends Component {
                                 <span>
                                   <button
                                     className="btn btn-primary integration-connect-btn"
-                                    onClick={() => this.emailProviderConnect()}
+                                    onClick={() =>
+                                      this.emailProviderConnect("mailchimp")
+                                    }
                                   >
-                                    Connect
+                                    {this.state.emailProviders.indexOf(
+                                      "mailchimp"
+                                    ) === -1
+                                      ? "Connect"
+                                      : "Connected"}
                                   </button>
                                 </span>
                               </div>
@@ -145,9 +174,15 @@ class Auth extends Component {
                                 <span>
                                   <button
                                     className="btn btn-primary integration-connect-btn"
-                                    onClick={() => this.emailProviderConnect()}
+                                    onClick={() =>
+                                      this.emailProviderConnect("hubspot")
+                                    }
                                   >
-                                    Connect
+                                    {this.state.emailProviders.indexOf(
+                                      "hubspot"
+                                    ) === -1
+                                      ? "Connect"
+                                      : "Connected"}
                                   </button>
                                 </span>
                               </div>
@@ -171,9 +206,15 @@ class Auth extends Component {
                                 <span>
                                   <button
                                     className="btn btn-primary integration-connect-btn"
-                                    onClick={() => this.emailProviderConnect()}
+                                    onClick={() =>
+                                      this.emailProviderConnect("campaign")
+                                    }
                                   >
-                                    Connect
+                                    {this.state.emailProviders.indexOf(
+                                      "campaign"
+                                    ) === -1
+                                      ? "Connect"
+                                      : "Connected"}
                                   </button>
                                 </span>
                               </div>
@@ -223,9 +264,17 @@ class Auth extends Component {
                                 <span>
                                   <button
                                     className="btn btn-primary integration-connect-btn"
-                                    onClick={() => this.emailProviderConnect()}
+                                    onClick={() =>
+                                      this.emailProviderConnect(
+                                        "active_campaign"
+                                      )
+                                    }
                                   >
-                                    Connect
+                                    {this.state.emailProviders.indexOf(
+                                      "active_campaign"
+                                    ) === -1
+                                      ? "Connect"
+                                      : "Connected"}
                                   </button>
                                 </span>
                               </div>
@@ -269,9 +318,15 @@ class Auth extends Component {
                                     <button
                                       type="button"
                                       className="btn btn-primary integration-connect-btn metro"
-                                      onClick={() => this.retargetConnect()}
+                                      onClick={() =>
+                                        this.retargetConnect("facebook")
+                                      }
                                     >
-                                      Connect
+                                      {this.state.retargets.indexOf(
+                                        "facebook"
+                                      ) === -1
+                                        ? "Connect"
+                                        : "Connected"}
                                     </button>
                                   </span>
                                 </span>
@@ -296,9 +351,14 @@ class Auth extends Component {
                                 <span>
                                   <button
                                     className="btn btn-primary integration-connect-btn"
-                                    onClick={() => this.retargetConnect()}
+                                    onClick={() =>
+                                      this.retargetConnect("adwords")
+                                    }
                                   >
-                                    Connect
+                                    {this.state.retargets.indexOf("adwords") ===
+                                    -1
+                                      ? "Connect"
+                                      : "Connected"}
                                   </button>
                                 </span>
                               </div>
