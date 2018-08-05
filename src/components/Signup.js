@@ -173,7 +173,13 @@ class Signup extends Component {
                         <button
                           className="btn btn-lg btn-primary"
                           type="submit"
-                          disabled={this.props.signUpLoading}
+                          disabled={
+                            this.props.signUpLoading ||
+                            !(
+                              this.state.userSignupDetails.email &&
+                              this.state.userSignupDetails.password.length >= 6
+                            )
+                          }
                         >
                           {this.props.signUpLoading ? "Loading.." : "CONTINUE"}
                         </button>
