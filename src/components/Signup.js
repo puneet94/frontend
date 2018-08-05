@@ -3,22 +3,22 @@ import illustartion from "../images/signup-login-ill_2x.png";
 import { connect } from "react-redux";
 import { signup } from "../actions/auth";
 import { Redirect } from "react-router-dom";
-import axios from "axios";
-import { SIGNUP_URL } from "../constants";
+
 class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
       userSignupDetails: {
-        email: "shfkhdf" + Math.random() + "@someth.com",
-        password: "testtest",
+        email: "test@test.com", //"shfkhdf" + Math.random() + "@someth.com",
+        password: "test",
         firstName: "fdff",
         lastName: "dffff"
       }
     };
   }
   componentWillMount = async () => {};
-  signup = () => {
+  signup = e => {
+    e.preventDefault();
     this.props.signup(this.state.userSignupDetails);
   };
   changeUserSignupDetails = e => {
@@ -65,7 +65,7 @@ class Signup extends Component {
                     </p>
                     <hr />
 
-                    <div id="sign_up_form">
+                    <form id="sign_up_form" onSubmit={this.signup}>
                       <div className="form-group">
                         <div className=" dis-flex  dis-flex-1">
                           <input
@@ -79,6 +79,17 @@ class Signup extends Component {
                             value={this.state.userSignupDetails.email}
                             onChange={this.changeUserSignupDetails}
                           />
+                          {this.props.signupErrors.email &&
+                            this.props.signupErrors.email.map(error => {
+                              return (
+                                <span
+                                  className="please-keep-it-at-le alert alert-danger"
+                                  key={error}
+                                >
+                                  {error}
+                                </span>
+                              );
+                            })}
                         </div>
                       </div>
                       <hr className="m-b-30 m-t-30" />
@@ -99,6 +110,17 @@ class Signup extends Component {
                               value={this.state.userSignupDetails.firstName}
                               onChange={this.changeUserSignupDetails}
                             />
+                            {this.props.signupErrors.firstName &&
+                              this.props.signupErrors.firstName.map(error => {
+                                return (
+                                  <span
+                                    className="please-keep-it-at-le alert alert-danger"
+                                    key={error}
+                                  >
+                                    {error}
+                                  </span>
+                                );
+                              })}
                           </div>
                           <div className="col-6 p-l-0">
                             <input
@@ -112,6 +134,17 @@ class Signup extends Component {
                               value={this.state.userSignupDetails.lastName}
                               onChange={this.changeUserSignupDetails}
                             />
+                            {this.props.signupErrors.lastName &&
+                              this.props.signupErrors.lastName.map(error => {
+                                return (
+                                  <span
+                                    className="please-keep-it-at-le alert alert-danger"
+                                    key={error}
+                                  >
+                                    {error}
+                                  </span>
+                                );
+                              })}
                           </div>
                         </div>
                       </div>
@@ -131,16 +164,19 @@ class Signup extends Component {
                           value={this.state.userSignupDetails.password}
                           onChange={this.changeUserSignupDetails}
                         />
-                        <span className="please-keep-it-at-le">
-                          please keep it at least 8 characters long
-                        </span>
+                        {this.props.signupErrors.password &&
+                          this.props.signupErrors.password.map(error => {
+                            return (
+                              <div className=" alert alert-danger" key={error}>
+                                {error}
+                              </div>
+                            );
+                          })}
                       </div>
                       <div className="t-center">
                         <button
                           className="btn btn-lg btn-primary"
-                          onClick={() => {
-                            this.signup();
-                          }}
+                          type="submit"
                         >
                           CONTINUE
                         </button>
@@ -149,7 +185,7 @@ class Signup extends Component {
                           your privacy is valued
                         </span>
                       </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
                 <div className="col-4 right-bg dis-flex dis-flex-column illustartion-container">
@@ -175,7 +211,8 @@ class Signup extends Component {
 const mapStateToProps = state => {
   console.log(state);
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    signupErrors: state.error.signupErrors
   };
 };
 export default connect(

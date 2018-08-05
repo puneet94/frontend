@@ -10,7 +10,11 @@ import facebook from "../images/facebook-logo_2x.png";
 import adwords from "../images/adwords-logo_2x.png";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { logout } from "../actions/auth";
 class Auth extends Component {
+  logout = () => {
+    this.props.logout();
+  };
   render() {
     if (this.props.isAuthenticated === false) {
       return <Redirect to="/auth/sign-up" />;
@@ -27,6 +31,12 @@ class Auth extends Component {
                       <img src={Logo} alt="react" width={90} />{" "}
                     </a>
                   </div>
+                  <button
+                    className="btn btn-primary integration-connect-btn"
+                    onClick={this.logout}
+                  >
+                    LOGOUT
+                  </button>
                 </header>
                 <div className="container mw-590 m-b-100 p-0 pos-rel">
                   <h2 className="great-things-await m-b-15">
@@ -307,5 +317,5 @@ const mapStateToProps = state => {
 };
 export default connect(
   mapStateToProps,
-  {}
+  { logout }
 )(Auth);

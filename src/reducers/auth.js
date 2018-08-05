@@ -19,9 +19,6 @@ export const auth = (state = INITIAL_STATE, action) => {
         expiresIn,
         tokenType
       } = action.payload;
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
-      localStorage.setItem("expiresIn", expiresIn);
 
       return {
         ...state,

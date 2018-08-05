@@ -9,17 +9,14 @@ class Signin extends Component {
     super(props);
     this.state = {
       userSigninDetails: {
-        email: "test@test.com",
-        password: "test"
+        email: "testtest@test.com",
+        password: "testtes"
       }
     };
   }
-  signin = async () => {
-    try {
-      await this.props.signin(this.state.userSigninDetails);
-    } catch (e) {
-      console.log(e);
-    }
+  signin = async e => {
+    e.preventDefault();
+    this.props.signin(this.state.userSigninDetails);
   };
   changeUserSigninDetails = e => {
     const { name, value } = e.target;
@@ -33,7 +30,7 @@ class Signin extends Component {
     });
   };
   render() {
-    if (this.props.isAuthenticated == true) {
+    if (this.props.isAuthenticated === true) {
       return <Redirect to="/auth/connect" />;
     }
     return (
@@ -66,7 +63,7 @@ class Signin extends Component {
                     <hr className="m-b-30" />
                     <div className="row">
                       <div className="col-12">
-                        <div id="sign_in_form">
+                        <form id="sign_in_form" onSubmit={this.signin}>
                           <div className="form-group m-b-20">
                             <input
                               className="form-control-lg forn-trans form-control"
@@ -97,7 +94,7 @@ class Signin extends Component {
                           <div className="t-center">
                             <button
                               className="btn btn-lg btn-primary"
-                              onClick={this.signin}
+                              type="submit"
                             >
                               LOGIN
                             </button>
@@ -106,7 +103,7 @@ class Signin extends Component {
                               <a href="/auth/sign-up">Sign up</a>
                             </span>
                           </div>
-                        </div>
+                        </form>
                       </div>
                     </div>
                   </div>
