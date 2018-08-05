@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Logo from "../images/logo-3.png";
 import illustartion from "../images/signup-login-ill_2x.png";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { signin } from "../actions/auth";
 class Signin extends Component {
@@ -42,15 +42,14 @@ class Signin extends Component {
                 <div className="col-8 scrollable">
                   <header className="p-t-50 p-l-50 p-r-50 p-b-20 dis-flex dis-flex-between m-r-0">
                     <div className="logo">
-                      <a href="/">
-                        <a href="/">
-                          <img src={Logo} alt="react" width={90} />
-                        </a>
-                      </a>
+                      <Link to="/">
+                        <img src={Logo} alt="react" width={90} />
+                      </Link>
                     </div>
-                    <a className="f-14" href="/auth/sign-up">
+
+                    <Link className="f-14" to="/auth/sign-up">
                       SIGN UP
-                    </a>
+                    </Link>
                   </header>
                   <div className="container mw-560">
                     <h2 className="great-things-await m-b-18">
@@ -89,18 +88,19 @@ class Signin extends Component {
                             />
                           </div>
                           <div className="m-b-40">
-                            <a href="/auth/reset">Forgot password?</a>
+                            <Link to="/auth/reset">Forgot password?</Link>
                           </div>
                           <div className="t-center">
                             <button
                               className="btn btn-lg btn-primary"
                               type="submit"
+                              disabled={this.props.signInLoading}
                             >
-                              LOGIN
+                              {this.props.signInLoading ? "Loading.." : "LOGIN"}
                             </button>
                             <span className="your-privacy-is-valu m-t-10 t-center dis-block">
                               Don’t have account yet?{" "}
-                              <a href="/auth/sign-up">Sign up</a>
+                              <Link to="/auth/sign-up">Sign up</Link>
                             </span>
                           </div>
                         </form>
@@ -128,7 +128,8 @@ class Signin extends Component {
 }
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    signInLoading: state.auth.signInLoading
   };
 };
 export default connect(

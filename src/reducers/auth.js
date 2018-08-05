@@ -1,4 +1,9 @@
-import { SET_AUTH_TOKEN, REMOVE_AUTH_TOKEN } from "../constants";
+import {
+  SET_AUTH_TOKEN,
+  REMOVE_AUTH_TOKEN,
+  SIGN_IN_LOADING,
+  SIGN_UP_LOADING
+} from "../constants";
 
 let accessTokenStored = localStorage.getItem("accessToken");
 console.log("access roken");
@@ -8,7 +13,9 @@ const INITIAL_STATE = {
   refreshToken: "",
   tokenType: "",
   isAuthenticated: accessTokenStored ? true : false,
-  expiresIn: ""
+  expiresIn: "",
+  signUpLoading: false,
+  signInLoading: false
 };
 export const auth = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -30,6 +37,10 @@ export const auth = (state = INITIAL_STATE, action) => {
       };
     case REMOVE_AUTH_TOKEN:
       return { ...state, isAuthenticated: false };
+    case SIGN_IN_LOADING:
+      return { ...state, signInLoading: action.payload };
+    case SIGN_UP_LOADING:
+      return { ...state, signUpLoading: action.payload };
     default:
       return state;
   }

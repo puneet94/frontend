@@ -8,7 +8,7 @@ import customerio from "../images/customerio-logo_2x.png";
 import activecampaign from "../images/activecampaign-logo_2x.png";
 import facebook from "../images/facebook-logo_2x.png";
 import adwords from "../images/adwords-logo_2x.png";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../actions/auth";
 class Auth extends Component {
@@ -27,9 +27,9 @@ class Auth extends Component {
               <div className="col-lg-8 scrollable">
                 <header className="p-t-50 p-l-50 p-r-50 p-b-20 dis-flex dis-flex-between m-r-0">
                   <div className="logo">
-                    <a href="/">
+                    <Link to="/">
                       <img src={Logo} alt="react" width={90} />{" "}
-                    </a>
+                    </Link>
                   </div>
                   <button
                     className="btn btn-primary integration-connect-btn"

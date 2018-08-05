@@ -2,15 +2,16 @@ import React, { Component } from "react";
 import illustartion from "../images/signup-login-ill_2x.png";
 import { connect } from "react-redux";
 import { signup } from "../actions/auth";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
+import Logo from "../images/logo-3.png";
 
 class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
       userSignupDetails: {
-        email: "test@test.com", //"shfkhdf" + Math.random() + "@someth.com",
-        password: "test",
+        email: "test@tfffest.com", //"shfkhdf" + Math.random() + "@someth.com",
+        password: "testfffffff",
         firstName: "fdff",
         lastName: "dffff"
       }
@@ -47,15 +48,13 @@ class Signup extends Component {
                 <div className="col-8 scrollable">
                   <header className="p-t-50 p-l-50 p-r-50 p-b-20 dis-flex dis-flex-between m-r-0">
                     <div className="logo">
-                      <a href="/">
-                        <a href="/">
-                          <img src="" alt="react" width={90} />
-                        </a>
-                      </a>
+                      <Link to="/">
+                        <img src={Logo} alt="react" width={90} />
+                      </Link>
                     </div>
-                    <a className="f-14" href="/auth/sign-in">
+                    <Link className="f-14" to="/auth/sign-in">
                       LOGIN
-                    </a>
+                    </Link>
                   </header>
                   <div className="container mw-560">
                     <h2 className="great-things-await">Great things await</h2>
@@ -79,18 +78,15 @@ class Signup extends Component {
                             value={this.state.userSignupDetails.email}
                             onChange={this.changeUserSignupDetails}
                           />
-                          {this.props.signupErrors.email &&
-                            this.props.signupErrors.email.map(error => {
-                              return (
-                                <span
-                                  className="please-keep-it-at-le alert alert-danger"
-                                  key={error}
-                                >
-                                  {error}
-                                </span>
-                              );
-                            })}
                         </div>
+                        {this.props.signupErrors.email &&
+                          this.props.signupErrors.email.map(error => {
+                            return (
+                              <div className="alert alert-danger" key={error}>
+                                {error}
+                              </div>
+                            );
+                          })}
                       </div>
                       <hr className="m-b-30 m-t-30" />
                       <div className="form-group m-b-40">
@@ -177,8 +173,9 @@ class Signup extends Component {
                         <button
                           className="btn btn-lg btn-primary"
                           type="submit"
+                          disabled={this.props.signUpLoading}
                         >
-                          CONTINUE
+                          {this.props.signUpLoading ? "Loading.." : "CONTINUE"}
                         </button>
 
                         <span className="your-privacy-is-valu m-t-10 t-center dis-block">
@@ -212,7 +209,8 @@ const mapStateToProps = state => {
   console.log(state);
   return {
     isAuthenticated: state.auth.isAuthenticated,
-    signupErrors: state.error.signupErrors
+    signupErrors: state.error.signupErrors,
+    signUpLoading: state.auth.signUpLoading
   };
 };
 export default connect(

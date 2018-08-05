@@ -8,29 +8,34 @@ import {
   SIGNIN_ERRORS,
   SIGNUP_ERRORS,
   SIGNUP_ERRORS_EMPTY,
-  SIGNIN_ERRORS_EMPTY
+  SIGNIN_ERRORS_EMPTY,
+  SIGN_IN_LOADING,
+  SIGN_UP_LOADING
 } from "../constants";
 
 export const signin = signindetails => {
-  alert(JSON.stringify(signindetails));
   return async dispatch => {
     try {
+      dispatch({ type: SIGN_IN_LOADING, payload: true });
+      dispatch({ type: SIGNIN_ERRORS_EMPTY });
       let response = await axios.post(SIGNIN_URL, { ...signindetails });
 
       dispatch({ type: SET_AUTH_TOKEN, payload: response.data.token });
       dispatch({ type: SET_USER_DETAILS, payload: response.data.user });
       dispatch({ type: SIGNIN_ERRORS_EMPTY });
     } catch (error) {
-      console.log("error in login");
-      console.log(error.response);
       window.swal("Login Error", error.response.data.message, "error");
       dispatch({ type: SIGNIN_ERRORS, payload: error.response.data.errors });
+    } finally {
+      dispatch({ type: SIGN_IN_LOADING, payload: false });
     }
   };
 };
 export const signup = signupdetails => {
   return async dispatch => {
     try {
+      dispatch({ type: SIGN_UP_LOADING, payload: true });
+      dispatch({ type: SIGNUP_ERRORS_EMPTY });
       let response = await axios.post(SIGNUP_URL, { ...signupdetails });
 
       const { accessToken, refreshToken, expiresIn, tokenType } = response.data;
@@ -46,7 +51,6 @@ export const signup = signupdetails => {
       // fetchUserLocationDetails()();
       // await fetchUserDetails()();
     } catch (error) {
-      console.log("error in signup");
       /*[
         {
           field: "password",
@@ -60,6 +64,8 @@ export const signup = signupdetails => {
         }
       ];*/
       dispatch({ type: SIGNUP_ERRORS, payload: error.response.data.errors });
+    } finally {
+      dispatch({ type: SIGN_UP_LOADING, payload: false });
     }
   };
 };
