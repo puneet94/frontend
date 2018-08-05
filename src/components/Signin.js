@@ -10,7 +10,7 @@ class Signin extends Component {
     this.state = {
       userSigninDetails: {
         email: "testtest@test.com",
-        password: "testtes"
+        password: "testtest"
       }
     };
   }
@@ -94,7 +94,14 @@ class Signin extends Component {
                             <button
                               className="btn btn-lg btn-primary"
                               type="submit"
-                              disabled={this.props.signInLoading}
+                              disabled={
+                                this.props.signInLoading ||
+                                !(
+                                  this.state.userSigninDetails.email &&
+                                  this.state.userSigninDetails.password
+                                    .length >= 6
+                                )
+                              }
                             >
                               {this.props.signInLoading ? "Loading.." : "LOGIN"}
                             </button>

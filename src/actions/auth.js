@@ -19,6 +19,12 @@ export const signin = signindetails => {
       dispatch({ type: SIGN_IN_LOADING, payload: true });
       dispatch({ type: SIGNIN_ERRORS_EMPTY });
       let response = await axios.post(SIGNIN_URL, { ...signindetails });
+      const { accessToken, refreshToken, expiresIn, tokenType } = response.data;
+
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("expiresIn", expiresIn);
+      localStorage.setItem("tokenType", tokenType);
 
       dispatch({ type: SET_AUTH_TOKEN, payload: response.data.token });
       dispatch({ type: SET_USER_DETAILS, payload: response.data.user });

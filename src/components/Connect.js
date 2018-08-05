@@ -12,8 +12,32 @@ import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../actions/auth";
 class Auth extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      emailProvidersCount: 0,
+      retargetsCount: 0
+    };
+  }
+  continueButtonEnabled = () => {
+    return this.state.emailProvidersCount > 0 && this.state.retargetsCount > 0;
+  };
   logout = () => {
     this.props.logout();
+  };
+  retargetConnect = () => {
+    this.setState(prevState => {
+      return {
+        retargetsCount: prevState.retargetsCount + 1
+      };
+    });
+  };
+  emailProviderConnect = () => {
+    this.setState(prevState => {
+      return {
+        emailProvidersCount: prevState.emailProvidersCount + 1
+      };
+    });
   };
   render() {
     if (this.props.isAuthenticated === false) {
@@ -94,7 +118,7 @@ class Auth extends Component {
                                 <span>
                                   <button
                                     className="btn btn-primary integration-connect-btn"
-                                    onClick="connect()"
+                                    onClick={() => this.emailProviderConnect()}
                                   >
                                     Connect
                                   </button>
@@ -119,7 +143,10 @@ class Auth extends Component {
                               </div>
                               <div className="width-100p dis-flex dis-flex-middle dis-flex-center">
                                 <span>
-                                  <button className="btn btn-primary integration-connect-btn">
+                                  <button
+                                    className="btn btn-primary integration-connect-btn"
+                                    onClick={() => this.emailProviderConnect()}
+                                  >
                                     Connect
                                   </button>
                                 </span>
@@ -142,7 +169,10 @@ class Auth extends Component {
                               </div>
                               <div className="width-100p dis-flex dis-flex-middle dis-flex-center">
                                 <span>
-                                  <button className="btn btn-primary integration-connect-btn">
+                                  <button
+                                    className="btn btn-primary integration-connect-btn"
+                                    onClick={() => this.emailProviderConnect()}
+                                  >
                                     Connect
                                   </button>
                                 </span>
@@ -191,7 +221,10 @@ class Auth extends Component {
                               </div>
                               <div className="width-100p dis-flex dis-flex-middle dis-flex-center">
                                 <span>
-                                  <button className="btn btn-primary integration-connect-btn">
+                                  <button
+                                    className="btn btn-primary integration-connect-btn"
+                                    onClick={() => this.emailProviderConnect()}
+                                  >
                                     Connect
                                   </button>
                                 </span>
@@ -236,6 +269,7 @@ class Auth extends Component {
                                     <button
                                       type="button"
                                       className="btn btn-primary integration-connect-btn metro"
+                                      onClick={() => this.retargetConnect()}
                                     >
                                       Connect
                                     </button>
@@ -260,7 +294,10 @@ class Auth extends Component {
                               </div>
                               <div className="width-100p dis-flex dis-flex-middle dis-flex-center">
                                 <span>
-                                  <button className="btn btn-primary integration-connect-btn">
+                                  <button
+                                    className="btn btn-primary integration-connect-btn"
+                                    onClick={() => this.retargetConnect()}
+                                  >
                                     Connect
                                   </button>
                                 </span>
@@ -279,7 +316,10 @@ class Auth extends Component {
               <div className="col-lg-8 continue-block">
                 <div className="col-sm-12 m-0-auto mw-650 p-t-30 p-l-40">
                   <div className="t-left dis-flex">
-                    <button className="btn btn-lg btn-primary m-r-30 p-0">
+                    <button
+                      className="btn btn-lg btn-primary m-r-30 p-0"
+                      disabled={!this.continueButtonEnabled()}
+                    >
                       CONTINUE
                     </button>
                     <span className="your-privacy-is-valu m-t-20">

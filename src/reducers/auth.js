@@ -6,7 +6,7 @@ import {
 } from "../constants";
 
 let accessTokenStored = localStorage.getItem("accessToken");
-console.log("access roken");
+console.log("access_token");
 console.log(accessTokenStored);
 const INITIAL_STATE = {
   accessToken: "",
