@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import "./styles/index.css";
 import App from "./components/app";
 import store from "./store.js";
+
 console.log(store);
 /**
  Browser Router is a Higher order component / HOC, it needs to wrap 
